@@ -1,0 +1,116 @@
+
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="{% static 'illust/js/script.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'illust/css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="header_frame"><a class="header_content" href="">カテゴリー1</a></div>
+        <div class="header_frame"><a class="header_content" href="">カテゴリー2</a></div>
+        <div class="header_frame"><a class="header_content" href="">カテゴリー3</a></div>
+        <div class="header_frame">
+            <form action="" method="GET">
+                <input type="text" name="search" placeholder="ここにキーワードを入れる" value="{{ request.GET.search }}">
+                <input type="submit" value="検索">
+            </form>
+        </div>
+    </header>
+
+
+
+
+    {% if request.GET.search %}
+    <div style="color:white;">{{ request.GET.search }}で検索しました</div>
+    {% endif %}
+
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="タイトル">
+        <input type="submit" value="投稿">
+    </form>
+
+    {# 受け取ったdesingsをforループで1つずつ取り出し、表示させる。 #}
+    {% for design in designs %}
+    <div>
+        <div>{{ design.id }}</div>
+        <div>{{ design.title }}</div>
+        <div>{{ design.date }}</div>
+
+        <form action="{% url 'illust:delete' design.id %}" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="削除">
+        </form>
+
+        <a class="btn btn-success" href="{% url 'illust:edit' design.id %}">編集</a>
+    </div>
+    {% endfor %}
+
+
+
+
+    <div class="category_header">{{category1}}</div>
+
+    <div class="preview_control_area">
+
+        <div class="preview_date_area">
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+        </div>
+        <div class="control_button previous_button">{{button1}}</div>
+        <div class="control_button next_button">Next</div>
+    </div>
+
+    <div class="category_header">{{category2}}</div>
+
+        <div class="preview_control_area">
+
+            <div class="preview_date_area">
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            </div>
+            <div class="control_button previous_button">{{button1}}</div>
+            <div class="control_button next_button">Next</div>
+        </div>
+
+
+    <div class="category_header">{{category3}}</div>
+
+        <div class="preview_control_area">
+
+            <div class="preview_date_area">
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+                <div class="data_preview_frame"><div class="data_preview_content">{{data}}</div></div>
+            </div>
+            <div class="control_button previous_button">{{button1}}</div>
+            <div class="control_button next_button">Next</div>
+        </div>
+</body>
+</html>
